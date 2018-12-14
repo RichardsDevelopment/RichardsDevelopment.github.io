@@ -10,6 +10,52 @@ In this video I identify the strengths and weaknesses of the code I chose to rep
 
 ## Software Engineering and Design
 
+Link to D20Chat Repository
+
+### 1. Choice
+
+The artifact I chose to represent my skills in terms of software engineering and design is my D20Chat program. It is a simple web application used by tabletop gamers to communicate in different in-game languages. This keeps the game immersive and personal. This is a project I worked on about two years ago as an introduction to web development and Node.js, and I am proud of it!
+
+### 2. Justification/ Skills Used
+
+As a show of my skills, I believe this is one of the most complete artifacts I have. It shows my use of external libraries, object-oriented programming, and full-stack web development. I used JavaScript, HTML, CSS, and SQL to create it, as well as Linux commands while I set up my online server. It was very messy when I started work, but I have added comments for every section of code and cleaned the organization of the program.  This was my plan from the beginning, but I have found additional things I would like to work on. When I created the server-side JavaScript, I had very little knowledge of creating server scripts, and I used global variables for things that will have to be done for each logged-in user. This can cause all kinds of errors, so I would like to turn these into class variables for the sockets. This is an easy process but will take some time to refactor the code. 
+
+### 3. Reflection
+
+While enhancing the code, I realized how much easier code is to read with accurate comments! Most programs that I’ve written have been small and comments were forsaken, which was a big mistake. In reorganizing the code, I also realized how much easier it was to find something when it is organized! Clean code is good code, and I need to keep this in mind moving forward.
+
+## Data Structures and Algorithms
+
+Link to BidTracker Repository
+
+### 1. Choice
+
+
+
+### 2. Justification/ Skills Used
+
+
+
+### 3. Reflection
+
+
+
+## Databases
+
+Link to D20Chat Repository
+
+### 1. Choice
+
+
+
+### 2. Justification/ Skills Used
+
+
+
+### 3. Reflection
+
+
+
 You can use the [editor on GitHub](https://github.com/RichardsDevelopment/RichardsDevelopment.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
