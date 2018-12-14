@@ -1,4 +1,14 @@
-## Welcome to GitHub Pages
+## Welcome to my GitHub page!
+
+My name is Eric Richards and I am a Computer Science student at Southern New Hampshire University. Over the last two years I have done quite a bit of programming and have developed a passion for it! These are just a couple of the projects I have undertaken, so check back regularly for updates and news regarding upcoming releases.
+
+## Code Review
+
+In this video I identify the strengths and weaknesses of the code I chose to represent my strengths in Software Design and Engineering, Data Structures and Algorithms, and Databases. This is shown through two programs: D20Chat and BidTracker. I also my plans for future changes regarding these programs.
+
+    Link to video here!!
+
+## Software Engineering and Design
 
 You can use the [editor on GitHub](https://github.com/RichardsDevelopment/RichardsDevelopment.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
 
