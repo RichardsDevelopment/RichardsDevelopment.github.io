@@ -6,7 +6,7 @@ My name is Eric Richards and I am a Computer Science student at Southern New Ham
 
 In this video I identify the strengths and weaknesses of the code I chose to represent my strengths in Software Design and Engineering, Data Structures and Algorithms, and Databases. This is shown through two programs: D20Chat and BidTracker. I also my plans for future changes regarding these programs.
 
-    Link to video here!!
+[![Code Review Video](https://i.imgur.com/DbimJgv.png)](https://youtu.be/K10crVmGWls)
 
 ## Software Engineering and Design
 
