@@ -1,0 +1,846 @@
+<!doctype html>
+<html>
+
+  <!-- Header with links to CSS files depending on screen-size -->
+  <head>
+	<title>Socket.IO chat</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" type="text/css" media="screen and (max-width: 400px)" href="mobile.css">
+	<link rel="stylesheet" type="text/css" media="screen and (max-width: 600px) and (min-width: 400.1px)" href="smlTablet.css">
+	<link rel="stylesheet" type="text/css" media="screen and (max-width: 800px) and (min-width: 600.1px)" href="tablet.css">
+    <link rel="stylesheet" type="text/css" media="screen and (min-width: 800.1px)" href="index.css">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+  </head>
+  
+  <!-- BODY -->
+  <body>
+	<div id="wrapper">
+	
+		<!-- NAVBAR -->
+		<div id="navBar">
+			<div id="siteLogo">
+				<!-- Logo CSS here -->
+			</div>	
+			<div id="navBtns">
+				<div class="dropdown">
+					<button class="dropbtn" id="options" name="smlRoomBtn">Rooms</button>
+					<div class="dropdown-content" name="roomDropdown">
+						<a onclick="addRoom()"> + Add Room </a>
+					</div>	
+				</div>	
+				<div class="dropdown">
+					<button class="dropbtn" id="options">Options</button>
+					<div class="dropdown-content">
+					  <a onclick="deleteRoom()">Delete Room</a>
+					  <a href="##">Contact Us</a>				  
+					</div>
+				  </div>
+				<button id="logout">Logout</button>
+			</div>
+		</div>
+		
+		<!-- SIDEBAR -->
+		<div id="sideBar">
+			<div id="rooms" name="leftSideBar">
+				<button id="crtroomBtn"> + New Room</button>
+				<div id="roomsBtns">
+					<!-- Buttons for each room will be added here -->
+				</div>
+			</div>
+			<div id="sharedFiles">
+				<div id="filesHeader">
+					Group Files
+				</div>
+			</div>
+		</div>	
+		
+		<!-- MESSAGES/ ROOMS -->
+		<div id="messages">
+			<div name="rooms">
+			</div>
+			
+			<!-- Room Deletion Modal -->
+			<div class="dialogModal" id="deleteCharModal" role="dialog" title="D20Chat Room Delete">
+				
+			</div>	
+			<!-- Login Modal HTML -->
+			<div class="dialogModal" id="myModal" role="dialog" title="d20Chat Login" >
+				<!-- <h4 class="modal-title">RPGChat Login</h4> -->
+				<form id ="loginForm" action ="">
+					Email: <input type="email" id="email"><br>
+					Pass:  <input type="password" id="password"><br>
+					<br>
+					<div id="modalBtns">
+						<button id="btnSubmit"> Login </button><button id="createAcct"> Sign Up </button>
+						<p id="errorMsg1"></p>
+						<a href="##">Forgot password?</a>
+					</div>
+				</form>	
+			</div>	
+				
+			<!-- Sign Up Modal HTML -->
+			<div class="dialogModal" id="modalSUP" role="dialog" title="D20Chat Sign Up">
+				<br>
+				<form id="signUpForm" action="">
+					F Name: <input id="fname"><br>
+					L Name: <input id="lname"><br>
+					Email: <input type="email" id="emailSU"><br>
+					Pass: <input type="password" id="pwd"><br>
+					Con Pass: <input type="password" id="conpwd"><br>
+					<br>
+					<div id="modalBtns">
+						<button id="btnSignUp"> Sign Up </button><button id="btnCancel"> Cancel </button>
+						<p id="errorMsg2"></p>
+					</div>
+				</form>
+			</div>
+				
+			<!-- Create Room Modal HTML -->
+			<div class="dialogModal" id="addRoom" role="dialog" title="D20Chat Create A Room">
+				<br>
+				<form>
+					Room Name: <input id="rmName"><br>
+					<br>
+					<div id="modalBtns">
+						<button id="mkRoomBtn"> Continue </button><button id="roombtnCancel"> Cancel </button>
+						<p id="errorMsg3"></p>
+					</div>
+				</form>
+			</div>	
+			
+			<!-- Num Characters Modal HTML-->
+			<div class="dialogModal" id="numChars" role="dialog" title="D20Chat Add Characters">
+				<p style="text-align: center;">How many player characters will you be adding?</p>
+				<input id="numOfChars"><br>
+				<div class="modalBtns">
+					<button id="numCharsButton">Submit</button><button onclick="cancelCharCreation(0)">Cancel</button>
+				</div>	
+			</div>
+			
+			<!-- Create Character Modal HTML -->
+			<div class="dialogModal" id="createChar" role="dialog" title="D20Chat Add Characters">
+				<p style="text-align: center;">Please complete all fields below:</p>
+			</div>
+	
+			<!--  Chat Box HTML -->
+			<div id="chatSendForm">
+				<form id="chatBox" action="">
+					<input id="m" autocomplete="off" placeholder="Type Your Message Here ..."/>
+					<div id="langChoice">
+						
+					</div>
+					<button id="messageBtn"></button>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Linked Javascript files -->
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script>
+		// variables for use in functions
+		var email;
+		var userID;
+		var activeRoom;
+		var activeChar;
+		var activeLangs = new Array();
+		var createRoomName;
+		var createRoomNumChars;
+		var rooms = new Array();
+		var roomNames = new Array();
+		var roomCharacters = new Array();
+		var charLangs = new Array();
+		
+		// Var declarations for functions
+		var showRoom;
+		var deleteRoom;
+		var addChar;
+		var submitChars;
+		var cancelCharCreation;
+		var deleteRoom;
+		var setCookies;
+		var checkCookie;
+		
+		// Socket connection variables
+		var URL = window.location.protocol  + "//"  + window.location.host;
+        
+		console.log("Connecting to "  + URL);
+        
+		var socket = io.connect(URL);
+			
+		// CONNECTION/LOGIN FUNCTIONS
+		socket.on('connect', function(){
+			// Socket is connected
+		});
+				
+		// When user is logged in (cookies are set), open addRoom dialog
+		function addRoom(){
+			var email = getCookie("email");
+			var userID = getCookie("userID");
+			if (email != "" && userID != ""){
+				$('#addRoom').dialog( "open" );
+			}
+			else{
+				//Do nothing
+			}
+		}
+		
+		/* FUNCTIONS */
+		// Function to generater the character details page
+		function generateCharCreation(numChars, callback){
+			for (var i = 0; i < numChars; i++){
+				$("#createChar").append("<br><br>Name: <input id=\"charName" + i + "\"> <br>Email: <input id=\"charEmail" + i + "\" type=\"email\"> <br>Languages: <textarea id=\"charLangs" + i + "\" cols=\"20\" rows=\"2\"></textarea><br>");
+			}
+			callback(null, "success");
+		}
+		
+		// Function to ensure all fields are filled in and push character information to roomCharacters list
+		function checkSubmitChars(numChars, callback){
+			for (var k = 0; k < numChars; k++){
+				var characterName = $('#charName' + k).val();
+				var userEmail = $('#charEmail' + k).val();
+				var languages = $('textarea#charLangs' + k).val();
+				
+				if(characterName == "" || userEmail == "" || languages == ""){
+					roomCharacters = [];
+					alert("Please fill in all fields!");
+					break;
+				}
+				else{
+					roomCharacters.push([characterName, userEmail, languages]);
+				}
+			}
+			callback(null, "success");
+		}
+		
+		// When submit is clicked on character information page
+		function submitChars(){
+			alert("submitting chars");
+			roomCharacters = [];
+			
+			// Callback to emit information to server for the created room
+			checkSubmitChars(createRoomNumChars, function(err, result){
+				if(err) throw err;
+				else{
+					alert(roomCharacters);
+					socket.emit('create room chars', userID, createRoomName, createRoomNumChars, roomCharacters);
+				}
+			});
+		}
+		
+		// When cancel is clicked on character information screen, close the dialog and emit message to server to cancel room creation
+		function cancelCharCreation(screen){
+			if (screen == 0){
+				$("#numChars").dialog( "close" );
+			}
+			else if (screen == 1){
+				$("#createChar").dialog( "close" );
+			}
+			else{
+				socket.emit('cancel room creation', createRoomName);
+			}
+		}
+		
+		// Function to find character for the active room
+		function setActiveChar(room, callback){
+			for (var i = 0; i < rooms.length; i++){
+				if (rooms[i][0] == room){
+					callback(null, rooms[i][1]);
+				}
+				else{
+					continue;
+				}
+			}
+		}
+			
+		// Function to create language input for the room depending on the users character	
+		function setChoiceLangs(room, callback){
+			$("#langChoice").empty();
+			
+			// IF the user is the game manager, creates an input box
+			if (activeChar == "GM"){
+				$("#langChoice").append('<input id="inputLang" name="language" value="Common"></select>');
+				callback(null, "Done");
+			}
+			// ELSE user is a player, and dropdown box is created with their languages 
+			else{
+				$("#langChoice").append('<select name="language"></select>');
+				$('select[name=language]').empty();
+				var langString = String(charLangs[room]);
+				
+				if (langString.indexOf(",") > 0){
+					var tempLangs = langString.split(",");
+					
+					for (var i = 0; i < tempLangs.length; i++){
+						$('select[name=language]').append('<option value=\'' + tempLangs[i] + '\'>' + tempLangs[i] + '</option>');
+						
+						if(i == tempLangs.length - 1){
+							callback(null, "Done");
+						}
+					}
+				}
+				else{
+					$('select[name=language]').append('<option value=\'' + langString + '\'>' + langString + '</option>');
+					callback(null, "Done");
+				}
+			}
+		}
+		
+		// Function to open modal for room chosen and set active character, room, and languages variables
+		showRoom = function(roomIDENT){
+			activeRoom = roomIDENT;
+				
+			$('button[name=' + roomIDENT + ']').css('background-color', '#e8e8e8');
+			$('button[name=' + roomIDENT + ']').siblings().css('background-color', '#ffffff');
+
+			// Callback to set active character value
+			setActiveChar(roomIDENT, function(err, char){
+				if (err) throw err;
+				activeChar = char;
+
+				// Callback to set active languages 
+				setChoiceLangs(roomIDENT, function(err, result){
+					if (err) throw err;
+					$('#' + roomIDENT).show();
+					$('#' + roomIDENT).siblings().hide();
+					$('#chatSendForm').show();	
+				});	
+			});
+		}
+			
+		// Function to check that login cookies are set
+		function checkCookie() {
+			var email = getCookie("email");
+			var userID = getCookie("userID");
+			if (email != "" && userID != "") {
+				socket.emit('reload rooms', userID, email);
+			} 
+			else {
+				$("#myModal").dialog("open");
+			}
+		}
+			
+		// Function to retrieve cookie information for the given name	
+		function getCookie(name) {
+			var name = name + "=";
+			var ca = document.cookie.split(';');
+			for(var i = 0; i < ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') {
+					c = c.substring(1);
+				}
+				if (c.indexOf(name) == 0) {
+					return c.substring(name.length, c.length);
+				}
+			}
+			return "";
+		}
+			
+		// Function to set cookies for email and userId for given length of time
+		function setCookies(us_id, email, exdays){
+			var d = new Date();
+			d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    		var expires = "expires=" + d.toUTCString();
+			document.cookie = "email =" + email + ";" + expires + ";path=/";
+			document.cookie = "userID =" + us_id + ";" + expires + ";path=/";
+		}
+		
+		
+		// Function to return 'success' if language is spoken, otherwise return 'fail'
+		function checkLang(room, lang, callback){
+			var langString = String(charLangs[room]);
+			if(langString == "ALL"){
+				callback(null, "success");
+			}
+			else{
+				var tempLangs = langString.split(",");
+				if (tempLangs.indexOf(lang) >= 0 || tempLangs.indexOf(lang.substring(1)) >= 0){
+					callback(null, "success");
+				}
+				else{
+					callback(null, "fail");
+				}
+			}
+		}
+			
+		// Function to display warning message when user deletes room	
+		function deleteRoom(){
+			$("#deleteCharModal").empty();
+			if(activeChar == "GM"){
+				$("#deleteCharModal").append("<h4> IMPORTANT </h4><br><p>Deleting this room will delete it for everyone! Continue?</p><br><div id=\"modalBtns\"><button id=\"GMRoomDel\" onclick=\"delRoom()\">Continue</button><button id=\"delCancel\" onclick=\"delCancel()\">Cancel</button></div>");
+				$("#deleteCharModal").dialog( "open" );
+			}
+			else{
+				$("#deleteCharModal").append("<h4> IMPORTANT </h4><br><p>Are you sure you want to remove yourself from this room?</p><br><div id=\"modalBtns\"><button id=\"GMRoomDel\" onclick=\"delRoom()\">Continue</button><button id=\"delCancel\" onclick=\"delCancel()\">Cancel</button></div>");
+				$("#deleteCharModal").dialog( "open" );
+			}
+		}
+		
+		// Function to emit deletion to server 
+		function delRoom(){
+			if(activeChar == undefined){
+				$("#deleteCharModal").dialog( "close" );
+				alert("Please select a room to delete!");
+			}
+			else{
+				$("#deleteCharModal").dialog( "close" );
+				socket.emit('delete room', activeRoom, activeChar);
+			}
+		}
+		
+		// Function to close delete dialog if cancel is clicked
+		function delCancel(){
+			$("#deleteCharModal").dialog( "close" );
+		}	
+		
+		/* SOCKET MESSAGES RECEIVED */
+		// When server sends message, append all messages into room divs 	
+		socket.on('add room messages', function(msgByRoom){
+			for(var i = 0; i < msgByRoom.length;++i){
+				room = msgByRoom[i][3];
+				lang = msgByRoom[i][4];
+				msg = msgByRoom[i][1];
+				encMsg = msgByRoom[i][2];
+				user = msgByRoom[i][0];
+					
+				// Callback to check if language spoken by user
+				checkLang(room, lang, function(err, result){
+					if (err) throw err;
+					if (lang[1] == ' '){
+						lang = lang.substring(1);
+					}
+					if (result == "success" ){
+						$('#' + room).append('<li><span style="font-weight:bold;color:#76323F">' + user + ' [' + lang + ']:</span> ' + msg);
+					}
+					else if (result == "fail"){
+						$('#' + room).append('<li><span style="font-weight:bold;color:#76323F">' + user + ' [' + lang + ']:</span> ' + encMsg);
+					}
+					else{
+						alert("Something went wrong getting languages!");
+					}
+				});
+			}
+		});
+
+		// When server sends login result, parse information
+		socket.on('login status', function(status, email, us_id, roomArray, roomNameArray){
+			rooms = [];
+			roomNames = [];
+			roomCharacters = [];
+			userID = us_id;
+
+			// If failed, display appropriate error message
+			if (status == "fail"){
+				$("#errorMsg1").text("Incorrect email/password. Please try again!");
+			}
+			// ELSE IF success, create room buttons, join user, and emit 'get messages' to server
+			else if (status == "success"){
+				setCookies(us_id, email, 0.05);
+				$( "#myModal" ).dialog( "close" );
+				if (roomArray.length == 0){
+					// if not part of any rooms, no buttons except 'create room'
+				}
+				else{
+					for (var i = 0; i < roomArray.length; i++){
+						socket.emit('join room', roomArray[i][0]);
+						
+						rooms.push(roomArray[i]);
+						charLangs[roomArray[i][0]] = roomArray[i][2];
+						roomNames.push(roomNameArray[i]);
+						$('#roomsBtns').append('<button id="roomBtn" name="' + rooms[i][0] + '" onclick="showRoom(\'' + rooms[i][0] + '\')"><span onclick="deleteRoom(' + rooms[i][0] + ')"></span>' + roomNames[i] + '</button>');
+						$('[name="roomDropdown"]').append('<a name="' + rooms[i][0] + '" onclick="showRoom(' + rooms[i][0] + ')">' + roomNames[i] + '</a>');
+						$('#messages').append('<div id="' + roomArray[i][0] + '" name="rooms"></div>');
+						$('#' + roomArray[i]["id"]).hide();
+						
+						socket.emit('get messages', rooms[i][0]);
+					}
+				}
+			}
+			// ELSE an unexpected result was returned, display appropriate error
+			else {
+				$("#errorMsg1").text("Something went wrong! Contact an administrator.");
+			}
+		});
+			
+		// When create account status received, display appropriate message
+		socket.on('create account status', function(status){
+			if (status == '!match'){
+				$("#errorMsg2").text("Passwords must match! Please try again.");
+			}
+			else if (status == 'exists'){
+				$("#errorMsg2").text("Account already exists with that email!");
+			}
+			else if (status == 'passwordFormat'){
+				$("#errorMsg2").text("Password must contains at least one number, one uppercase letter, one special character, and must be at least 8 characters long!");
+			}
+			else {
+				$("#errorMsg2").text("Account created successfully! Please hit 'cancel' and log in!");					
+			}
+		});
+		
+		// When room creation status is returned from server, display error or open characters dialog if successful	
+		socket.on('create room status', function(result){
+			if (result == "badname"){
+				$("#errorMsg3").text("That name is already taken! Please try another one.");
+			}
+			else if (result == "success"){
+				$("#addRoom").dialog("close");
+				$("#numChars").dialog( "open" );
+			}
+			else{
+				$("#errorMsg3").text("Error: Please contact an administrator!");
+			}
+		});
+
+		// When status is returned from the server, parse information and reload rooms/ characters/ languages information	
+		socket.on('char creation status', function(result){
+			if (result == "success"){
+				$("#createChar").dialog( "close" );
+				rooms = [];
+				roomCharacters = [];
+				roomNames = [];
+				charLangs = [];
+				$( "#roomsBtns" ).empty();
+				
+				socket.emit('reload rooms', userID, email);				
+			}
+			else if (result == "nameErr"){
+				alert('"GM" already exists! Please pick a different name.');
+			}
+			else if (result == "langErr"){
+				alert('"ALL" is not a valid language! Please try again.');
+			}
+			else{
+				alert("Something went wrong with character creation!");
+			}
+		});
+		
+		// on receiving 'chat message' from server, append div #messages with user and message
+		socket.on('chat message', function(user, msg, encMsg, room, lang){
+			for (var i = 0; i < rooms.length; i++){
+				if (rooms[i][0] == room){
+					checkLang(room, lang, function(err, result){
+						if (err) throw err;
+						alert("Checked language '" + lang + "'");
+						if (lang[1] == ' '){
+							lang = lang.substring(1);
+						}
+						if (result == "success" ){
+							$('#' + room).append('<li><span style="font-weight:bold;color:#76323F">' + user + ' [' + lang + ']:</span> ' + msg);
+						}
+						else if (result == "fail"){
+							$('#' + room).append('<li><span style="font-weight:bold;color:#76323F">' + user + ' [' + lang + ']:</span> ' + encMsg);
+						}
+						else{
+							alert("Something went wrong getting languages!");
+						}
+					});
+				}
+				else{
+					continue;
+				}
+			}
+		});
+		
+		// When success message received from server about deletion, reload the page
+		socket.on('deletion successful', function(){
+			location.reload(true);
+		});
+		
+		/* DOM FUNCTIONS */
+		// When Login button clicked, send email and password to server for verification	
+		$('#btnSubmit').on('click', function(e){
+			e.preventDefault();
+			email = $('#email').val();
+			var password = $('#password').val();
+			socket.emit('check login', email, password);
+		});
+		
+		// Open sign-up modal if sign up button is clicked
+		$('#createAcct').on('click', function(e){
+			e.preventDefault();
+			$('#modalSUP').dialog( "open" );
+		});
+			
+		// Close sign-up modal if cancel button is clicked	
+		$("#btnCancel").on('click', function(e){
+			e.preventDefault();
+			$("#modalSUP").dialog("close");
+		});
+			
+		// When submit clicked on signup modal, retrieve info and pass to server for verification 	
+		$('#btnSignUp').on('click', function(e){
+			e.preventDefault();
+			var fnameSU = $('#fname').val();
+			var lnameSU = $('#lname').val();
+			var emailSU = $('#emailSU').val();
+			var pwdSU = $('#pwd').val();
+			var conpwdSU = $('#conpwd').val();				
+				
+			socket.emit('create account', fnameSU, lnameSU, emailSU, pwdSU, conpwdSU);
+		});
+		
+		// When user clicks create room button on left side, run addRoom function
+		$("#crtroomBtn").on('click', function(e){
+			e.preventDefault();
+			addRoom();
+		});
+			
+		// When cancel clicked in add room dialog, close dialog
+		$("#roombtnCancel").on('click', function(e){
+			e.preventDefault();
+			$("#addRoom").dialog("close");
+		});
+			
+		// When cancel clicked in number of characters dialog, close dialog	
+		$("#numCharsCancel").on('click', function(e){
+			e.preventDefault();
+			$("#numChars").dialog( "close" );
+		});
+		
+		// When submit clicked in addRoom dialog, check that name is set and emit room name to server	
+		$("#mkRoomBtn").on('click', function(e){
+			e.preventDefault();
+			createRoomName = "";
+			var rmName = $('#rmName').val();
+			createRoomName = rmName;
+				
+			if (rmName == ""){
+				$("#errorMsg3").text("Please make sure you enter a name!");
+			}
+			else{
+				socket.emit('create room', rmName);
+			}
+		});
+			
+		// When logout is clicked: reset lists, disconnect socket, destroy cookies, reload the page
+		$('#logout').on('click', function(){
+			email = userID = showRoom = activeRoom = null;
+			rooms = [];
+			roomNames = [];
+			roomCharacters = [];
+			socket.disconnect();
+			document.cookie = "email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+			document.cookie = "userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+			location.reload(true);
+		});
+			
+		// on submit of message, emit 'chat message' with message
+		$("#chatBox").submit(function(){
+			var lang = $('[name=language]').val();
+			if (email == ""){
+				// IF not logged in, do nothing
+			}
+			else if (activeRoom == null){
+				alert("Please choose a room before sending any messages!");
+			}
+			else{
+				if ($('#m').val() == ""){
+					// IF no message in chatBox, do nothing
+				}
+				else{
+				alert(activeRoom);
+					socket.emit('chat message', userID, $('#m').val(), activeRoom, activeChar, lang);
+					$('#m').val('');
+				}
+			}
+			return false;
+		});	
+		
+		// When number of characters' submit button clicked, generate next page
+		$("#numCharsButton").on('click', function(e){
+			e.preventDefault();
+			createRoomNumChars = null;
+			createRoomNumChars = $("#numOfChars").val();
+			$("#numChars").dialog("close");
+			
+			// Run callback function to create Character Details dialog, create buttons and open that dialog
+			generateCharCreation(createRoomNumChars, function(err, result){
+				if (err) throw err;
+				else{
+					$("#createChar").append("<br><div id=\"modalBtns\"><button onclick=\"submitChars()\">Next</button><button onclick=\"cancelCharCreation(1)\">Cancel</button></div><br>");
+					$("#createChar").append("<h5 style=\"font-weight: bold;color: #cc0000;text-align: center;\">Please be sure to include a comma between all individual languages, otherwise they will be counted as one!</h5>");
+					$("#createChar").dialog( "open" );
+				}
+			});
+		});
+	
+		/* MODAL AND DIALOG DETAILS */
+		// On page load, set dialog sizes depending on screen size
+		$(function () {		
+			if($(window).width() > 800){
+				$("#myModal").dialog({ 
+					autoOpen: false,
+					width: 400,
+					height: 200,
+					open: function(event, ui) {
+						$(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+					}
+				});
+				$("#deleteCharModal").dialog({
+					autoOpen: false,
+					width: 400,
+					open: function(event, ui) {
+						$(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+					}
+				});
+				$("#addRoom").dialog({
+					autoOpen: false,
+					width: 400,
+					open: function(event, ui) {
+						$(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+					}
+				});
+				$("#modalSUP").dialog({
+					autoOpen: false,
+					width: 400
+				});
+				$("#numChars").dialog({
+					autoOpen: false,
+					width: 400
+				});			
+				$("#createChar").dialog({
+					autoOpen: false,
+					overflow: scroll,
+					width: 500,
+					height: 600,
+					beforeClose: function (event, ui) {
+                		$("#createChar").empty();
+        			}
+				});
+			}
+			else if($(window).width() > 400 && $(window).width() <= 800 ){
+				$("#myModal").dialog({ 
+					autoOpen: false,
+					width: $(window).width()-180,
+					height: 300,
+					open: function(event, ui) {
+						$(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+					}
+				});
+				$("#deleteCharModal").dialog({
+					autoOpen: false,
+					width: $(window).width()-75,
+					open: function(event, ui) {
+						$(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+					}
+				});
+				$("#addRoom").dialog({
+					autoOpen: false,
+					width: $(window).width()-50,
+					open: function(event, ui) {
+						$(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+					}
+				});			
+				$("#modalSUP").dialog({
+					autoOpen: false,
+					width: $(window).width()-40
+				});
+				$("#numChars").dialog({
+					autoOpen: false,
+					width: $(window).width()-50
+				});
+				$("#createChar").dialog({
+					autoOpen: false,
+					overflow: scroll,
+					height: 600,
+					width: $(window).width()-50,
+					beforeClose: function (event, ui) {
+                		$("#createChar").empty();
+        			}
+				});
+			}
+			else if($(window).width() < 400){
+				$("#myModal").dialog({ 
+					autoOpen: false,
+					width: $(window).width()-100,
+					height: 250,
+					open: function(event, ui) {
+						$(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+					}
+				});
+				$("#deleteCharModal").dialog({
+					autoOpen: false,
+					width: $(window).width()-75,
+					open: function(event, ui) {
+						$(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+					}
+				});
+				$("#addRoom").dialog({
+					autoOpen: false,
+					width: $(window).width()-50,
+					open: function(event, ui) {
+						$(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+					}
+				});			
+				$("#modalSUP").dialog({
+					autoOpen: false,
+					width: $(window).width()-40
+				});
+				$("#numChars").dialog({
+					autoOpen: false,
+					width: $(window).width()-50
+				});
+				$("#createChar").dialog({
+					autoOpen: false,
+					overflow: scroll,
+					height: 600,
+					width: $(window).width()-50,
+					beforeClose: function (event, ui) {
+                		$("#createChar").empty();
+        			}
+				});
+			}
+			else{
+				$("#myModal").dialog({ 
+					autoOpen: false,
+					width: $(window).width()-180,
+					height: 300,
+					open: function(event, ui) {
+						$(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+					}
+				});
+				$("#deleteCharModal").dialog({
+					autoOpen: false,
+					width: $(window).width()-180,
+					open: function(event, ui) {
+						$(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+					}
+				});
+				$("#addRoom").dialog({
+					autoOpen: false,
+					width: $(window).width()-50,
+					open: function(event, ui) {
+						$(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+					}
+				});			
+				$("#modalSUP").dialog({
+					autoOpen: false,
+					width: $(window).width()-40
+				});
+				$("#numChars").dialog({
+					autoOpen: false,
+					width: $(window).width()-50
+				});
+				$("#createChar").dialog({
+					autoOpen: false,
+					overflow: scroll,
+					height: 600,
+					width: $(window).width()-50,
+					beforeClose: function (event, ui) {
+                		$("#createChar").empty();
+        			}
+				});
+			}
+			
+			// Check cookies during load
+			checkCookie();
+			
+		});
+	</script>	
+  </body>
+</html>
