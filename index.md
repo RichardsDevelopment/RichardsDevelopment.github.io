@@ -1,6 +1,6 @@
 ## Professional Self-Assessment
 
-    My journey through the Computer Science program at SNHU has helped shape who I am as a developer. It has shown me how to conduct 
+  My journey through the Computer Science program at SNHU has helped shape who I am as a developer. It has shown me how to conduct 
   myself in a professional way and how to perform every aspect of software development at a high level. When I started, I had no idea 
   what to expect or what I wanted from the program, I just knew that I had this new-found love for programming and I wanted to pursue a 
   career in the field! Since then I have learned many programming languages, frameworks, and services, but have also mastered important 
@@ -45,7 +45,7 @@
      Node.js in my D20Chat web application. Personal data is sent back and forth between the client and server, so it was important to 
      make sure it could not be intercepted and stolen. 
 
-    In particular, there are two programs that most accurately show my skills: BidTracker and D20Chat. BidTracker is a program recently 
+  In particular, there are two programs that most accurately show my skills: BidTracker and D20Chat. BidTracker is a program recently 
   developed based on a program written during my Data Structures and Algorithms class. It loaded a comma-separated values file filled 
   with auction bid data into a binary search tree and allowed the user to sort, traverse, search, and delete leaves from the tree. It 
   was usable but was only a command line program. I decided to learn the Qt framework in order to develop an efficient GUI for the 
@@ -53,7 +53,7 @@
   to quickly learn and implement topics. A link to the repository containing this program as well as a validation for my changes can be 
   found below in the “Data Structures and Algorithms” section of my ePortfolio.
 
-    D20Chat, on the other hand, was a web application of my own making. I am a tabletop gamer and always found it difficult to try and 
+  D20Chat, on the other hand, was a web application of my own making. I am a tabletop gamer and always found it difficult to try and 
   pretend you didn’t hear something spoken in another in-game language. This program allowed a game manager to create a chat room and 
   add characters that a player can log in as. The manager can then talk to players in particular languages, making sure encoded messages 
   are sent to every player that can’t speak that language in game! It shows my skills in web development using HTML, CSS, and 
@@ -62,7 +62,7 @@
 
 ## Code Review
 
-    In this video I identify the strengths and weaknesses of the code I chose to represent my strengths in Software Design and 
+  In this video I identify the strengths and weaknesses of the code I chose to represent my strengths in Software Design and 
   Engineering, Data Structures and Algorithms, and Databases. This is shown through two programs: D20Chat and BidTracker. I also my 
   plans for future changes regarding these programs.
 
@@ -74,13 +74,13 @@
 
 ### 1. Choice
 
-    The artifact I chose to represent my skills in terms of software engineering and design is my D20Chat program. It is a simple web 
+  The artifact I chose to represent my skills in terms of software engineering and design is my D20Chat program. It is a simple web 
   application used by tabletop gamers to communicate in different in-game languages. This keeps the game immersive and personal. This is 
   a project I worked on about two years ago as an introduction to web development and Node.js, and I am proud of it!
 
 ### 2. Justification/ Skills Used
 
-    As a show of my skills, I believe this is one of the most complete artifacts I have. It shows my use of external libraries, object-
+  As a show of my skills, I believe this is one of the most complete artifacts I have. It shows my use of external libraries, object-
   oriented programming, and full-stack web development. I used JavaScript, HTML, CSS, and SQL to create it, as well as Linux commands 
   while I set up my online server. It was very messy when I started work, but I have added comments for every section of code and 
   cleaned the organization of the program.  This was my plan from the beginning, but I have found additional things I would like to work 
@@ -90,9 +90,9 @@
 
 ### 3. Reflection
 
-     While enhancing the code, I realized how much easier code is to read with accurate comments! Most programs that I’ve written have 
-   been small and comments were forsaken, which was a big mistake. In reorganizing the code, I also realized how much easier it was to 
-   find something when it is organized! Clean code is good code, and I need to keep this in mind moving forward.
+  While enhancing the code, I realized how much easier code is to read with accurate comments! Most programs that I’ve written have 
+  been small and comments were forsaken, which was a big mistake. In reorganizing the code, I also realized how much easier it was to 
+  find something when it is organized! Clean code is good code, and I need to keep this in mind moving forward.
 
 ## Data Structures and Algorithms
 
@@ -100,7 +100,7 @@
 
 ### 1. Choice
 
-    The artifact included is one that I developed while in the Data Structures and Algorithms class. It was initially given to the class 
+  The artifact included is one that I developed while in the Data Structures and Algorithms class. It was initially given to the class 
   riddled with errors, and we were tasked with finding them and remedying them. It was created to load bid data from a comma-separated 
   values file, insert them into a  binary search tree sorted by the bid ID, and allow a user to view all bids, add a bid, delete a bid, 
   and view sorted bids. The only thing it was lacking was a simple to use GUI! I went through some tutorials and settled on Qt creator 
@@ -108,7 +108,7 @@
 
 ### 2. Justification/ Skills Used
 
-    This program was a great example of data structures and algorithms, and because of this I wanted to include it in my ePortfolio. It 
+  This program was a great example of data structures and algorithms, and because of this I wanted to include it in my ePortfolio. It 
   uses a binary search tree to store bid information and allows the user to perform actions on the binary search tree by calling 
   specific functions. In order to implement these changes, I had to learn a whole framework! Qt is tough to learn initially, but there 
   is a wealth of information out there that helped me along the way. I also discovered that it is much easier to just do things Qt’s way 
@@ -119,7 +119,7 @@
 
 ### 3. Reflection
 
-    I am more than thrilled with how it turned out! There are a few things I would like to improve moving forward, namely adding 
+  I am more than thrilled with how it turned out! There are a few things I would like to improve moving forward, namely adding 
   comments, properly formatting the code, and adding a “save” feature to the GUI allowing the user to save all changes to the csv file 
   loaded. As of right now it doesn’t save changes, so clicking the “load” button will overwrite any changes. 
 
@@ -129,7 +129,7 @@
 
 ### 1. Choice
 
-    For the databases portion of my ePortfolio I decided to include the server-side code of my D20Chat program. Since it is a messaging 
+  For the databases portion of my ePortfolio I decided to include the server-side code of my D20Chat program. Since it is a messaging 
   service with a login system, there is a lot of information that must be kept in a secure location. When I initially tackled this 
   project, I was just starting out with SQL and had a tenuous grasp on the concepts, never mind efficiency best practices! Over the last 
   two years I have developed more programs than I can remember , most of them using database connections and different programming 
@@ -137,13 +137,13 @@
 
 ### 2. Justification/ Skills Used
 
-    Mongo is much more efficient and reliable when it comes to big data sources like what my messaging service could see. This switch 
+  Mongo is much more efficient and reliable when it comes to big data sources like what my messaging service could see. This switch 
   not only improved my program but showed that I have the Mongo and SQL skills to pull off a full-scale rewrite like this! I have 
   learned how to use the mongodb NPM library for Node.js as well as numerous other concepts such as asynchronous function calls and 
   socket variables.
 
 ### 3. Reflection
 
-    I think this project has helped to put things into perspective for me. I have been programming a lot and I feel I underestimated the 
+  I think this project has helped to put things into perspective for me. I have been programming a lot and I feel I underestimated the 
   time it would take me to learn a new concept (Qt) and switch everything over to Mongo. This is a mistake I will not make again! 
 
