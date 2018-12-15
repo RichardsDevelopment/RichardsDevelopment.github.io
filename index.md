@@ -1,6 +1,6 @@
 # Welcome to my GitHub page!
 
-My name is Eric Richards and I am a Computer Science student at Southern New Hampshire University. Over the last two years I have done quite a bit of programming and have developed a passion for it! These are just a couple of the projects I have undertaken, so check back regularly for updates and news regarding upcoming releases.
+My name is Eric Richards and I am a Computer Science student at Southern New Hampshire University. Over the last two years I have done quite a bit of programming and have developed a passion for it! These are just a couple of the projects I have undertaken, so check back regularly for updates and news regarding upcoming releases. Each logo button is clickable and will lead you to the projects repository, so be sure to check them out if you have not already done so!
 
 ## Code Review
 
@@ -10,7 +10,7 @@ In this video I identify the strengths and weaknesses of the code I chose to rep
 
 ## Software Engineering and Design
 
-Link to D20Chat Repository
+[![D20Chat Link](https://i.imgur.com/9YB3PsR.png)](https://github.com/RichardsDevelopment/D20Chat)
 
 ### 1. Choice
 
@@ -26,7 +26,7 @@ While enhancing the code, I realized how much easier code is to read with accura
 
 ## Data Structures and Algorithms
 
-Link to BidTracker Repository
+[![BidTracker Link](https://i.imgur.com/sK1K7lC.png)](https://github.com/RichardsDevelopment/BidTracker)
 
 ### 1. Choice
 
@@ -42,7 +42,7 @@ I am more than thrilled with how it turned out! There are a few things I would l
 
 ## Databases
 
-Link to D20Chat Repository
+[![D20Chat Link](https://i.imgur.com/9YB3PsR.png)](https://github.com/RichardsDevelopment/D20Chat)
 
 ### 1. Choice
 
