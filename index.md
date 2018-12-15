@@ -1,6 +1,51 @@
 # Welcome to my GitHub page!
 
-My name is Eric Richards and I am a Computer Science student at Southern New Hampshire University. Over the last two years I have done quite a bit of programming and have developed a passion for it! These are just a couple of the projects I have undertaken, so check back regularly for updates and news regarding upcoming releases. Each logo button is clickable and will lead you to the projects repository, so be sure to check them out if you have not already done so!
+## Professional Self-Assessment
+
+  My journey through the Computer Science program at SNHU has helped shape who I am as a developer. It has shown me how to conduct myself in a professional way and how to perform every aspect of software development at a high level. When I started, I had no idea what to expect or what I wanted from the program, I just knew that I had this new-found love for programming and I wanted to pursue a career in the field! Since then I have learned many programming languages, frameworks, and services, but have also mastered important topics such as:
+  
+  **-	Collaborating in a Team Environment**
+    -Through my Collaboration and Team Projects class I learned how to use EGit alongside Eclipse for Java development, and used it to 
+     create and merge branches, commit and push changes, pull/ fetch changes from the remote repository and merge them into my current 
+     project, and many other functions associated with team development. Outside of the program, I have used the Git command line tool 
+     to develop Android Applications and websites with a small team of developers. This has given me the knowledge to tackle team 
+     development head on!
+     
+  **-	Communicating to Stakeholders**
+    -There is an emphasis in the Computer Science program at SNHU on agile software development, and I utilized the principles 
+     repeatedly. In this type of development environment there is an emphasis on deliverables and stakeholder feedback, and I feel 
+     confident that I have adequately used all the concepts associated with Agile development at the highest level. Outside of the 
+     program, I have used tools such as Trello to create a backlog of tasks that I would pick from during a development sprint. I would 
+     then incorporate my changes, release it to the user, and allow them to give their feedback and recommend changes as necessary. 
+     Though I have done this, there is still a lot to learn! Every stakeholder is different, so experience will only make me better!
+
+  **-	Data Structures and Algorithms**
+    -Throughout my coursework I was shown how to properly implement proper data structures such as linked lists, binary search trees, 
+     and hash maps into my programs, as well as algorithms to traverse, sort, and search them. This was important to my success, so I 
+     have decided to include my BidTracker program in this ePortfolio to show my talents in this area. 
+
+  **-	Software Engineering and Design**
+    -From planning to implementation, I was taught how to break apart a problem and develop a solution to fix it. I used this in every 
+     class I took, including Java, C++, C#, Python, and even MongoDB and SQL. Outside of my coursework, I have developed two Android 
+     appliciations, numerous websites, and a few desktop applications that required me to utilize software engineering and design 
+     principles to complete. Over time I will add these projects to this portfolio!
+
+  **-	Databases**
+    -In every personal project I undertook I used either SQLite, SQL, or MongoDB. These were all concepts I learned throughout my 
+     coursework, but that took hours of outside work to master. I was able to implement database solutions in Python, Java, C++, PHP, 
+     and Javascript, and am confident in my abilities to plan, develop, and implement a proper database structure into any project I am 
+     a part of!
+
+  **-	Security**
+    -Security is one of the most important aspects of programming. In a day and age where anyone can access any amount of information at 
+     the click of a button, it is important to make sure that sensitive data is kept private and that the system developed can’t be 
+     easily compromised. Security is always front and center in my development but was best shown through my use of Socket.IO with 
+     Node.js in my D20Chat web application. Personal data is sent back and forth between the client and server, so it was important to 
+     make sure it could not be intercepted and stolen. 
+
+  In particular, there are two programs that most accurately show my skills: BidTracker and D20Chat. BidTracker is a program recently developed based on a program written during my Data Structures and Algorithms class. It loaded a comma-separated values file filled with auction bid data into a binary search tree and allowed the user to sort, traverse, search, and delete leaves from the tree. It was usable but was only a command line program. I decided to learn the Qt framework in order to develop an efficient GUI for the program. This showed my skills in software engineering and design, data structures and algorithms, C++, and Qt as well as my ability to quickly learn and implement topics. A link to the repository containing this program as well as a validation for my changes can be found below in the “Data Structures and Algorithms” section of my ePortfolio.
+
+  D20Chat, on the other hand, was a web application of my own making. I am a tabletop gamer and always found it difficult to try and pretend you didn’t hear something spoken in another in-game language. This program allowed a game manager to create a chat room and add characters that a player can log in as. The manager can then talk to players in particular languages, making sure encoded messages are sent to every player that can’t speak that language in game! It shows my skills in web development using HTML, CSS, and Javascript, as well as Node.js, Socket.IO, security best practices, database design and implementation, and numerous other topics. Links to this repository can be found in the “Software Engineering and Design” and “Databases” sections found below!
 
 ## Code Review
 
