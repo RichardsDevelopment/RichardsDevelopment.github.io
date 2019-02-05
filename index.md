@@ -1,3 +1,13 @@
+## Projects
+  ### Web
+  [![D20Chat Link](https://i.imgur.com/rAqQe5U.png)](https://github.com/RichardsDevelopment/D20Chat)
+  
+  ### Apps
+  [![BidTracker Link](https://i.imgur.com/rTB1zkc.png)](https://github.com/RichardsDevelopment/BidTracker)
+  [![WW2 Weekend Link](https://i.imgur.com/ljeSpvM.png)](https://github.com/RichardsDevelopment/WW2Weekend)
+
+  
+  
 ## Professional Self-Assessment
 
   My journey through the Computer Science program at SNHU has helped shape who I am as a developer. It has shown me how to conduct 
@@ -70,7 +80,7 @@
 
 ## Software Engineering and Design
 
-[![D20Chat Link](https://i.imgur.com/9YB3PsR.png)](https://github.com/RichardsDevelopment/D20Chat)
+[![D20Chat Link](https://i.imgur.com/rAqQe5U.png)](https://github.com/RichardsDevelopment/D20Chat)
 
 ### 1. Choice
 
@@ -96,7 +106,7 @@
 
 ## Data Structures and Algorithms
 
-[![BidTracker Link](https://i.imgur.com/sK1K7lC.png)](https://github.com/RichardsDevelopment/BidTracker)
+[![BidTracker Link](https://i.imgur.com/rTB1zkc.png)](https://github.com/RichardsDevelopment/BidTracker)
 
 ### 1. Choice
 
@@ -125,7 +135,7 @@
 
 ## Databases
 
-[![D20Chat Link](https://i.imgur.com/9YB3PsR.png)](https://github.com/RichardsDevelopment/D20Chat)
+[![D20Chat Link](https://i.imgur.com/rAqQe5U.png)](https://github.com/RichardsDevelopment/D20Chat)
 
 ### 1. Choice
 
